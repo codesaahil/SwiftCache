@@ -12,12 +12,9 @@ public class LRUEvictionStrategy<K, V> implements EvictionStrategy<K, V> {
     @Override
     public void evict(Map<K, V> cache, Queue<K> evictionQueue) {
         K evictedKey = evictionQueue.poll();
+        cache.remove(evictedKey);
 
-        if (evictedKey != null) {
-            cache.remove(evictedKey);
-
-            logger.log(Level.INFO, "Key {0} evicted (LRU)", evictedKey);
-        }
+        logger.log(Level.INFO, "Key {0} evicted (LRU)", evictedKey);
     }
 
     @Override
